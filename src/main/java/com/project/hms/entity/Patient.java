@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Table(name = "patient_details")
 public class Patient {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

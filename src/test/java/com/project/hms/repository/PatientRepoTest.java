@@ -17,12 +17,11 @@ public class PatientRepoTest {
 
     @Autowired
     private PatientRepo patientRepo;
-
     Patient patient;
 
     @BeforeEach
     void setUp(){
-        patient = new Patient(1,"Emily Clark", LocalDate.of(2025,02,03), Gender.FEMALE,"+1122334455",32);
+        patient = new Patient(null,"John", LocalDate.of(2025,1,2), Gender.MALE,"9809098101",40);
         patientRepo.save(patient);
     }
 
@@ -30,17 +29,19 @@ public class PatientRepoTest {
     void tearDown(){
         patient = null;
         patientRepo.deleteAll();
-
     }
 
-    /// Test case for SUCCESS
+    //test for success
     @Test
-    void testFoundByPatientName_SUCCESS(){
-        Patient name = patientRepo.findByName("Emily Clark");
-        assertThat(name.getName()).isEqualTo(patient.getName());
+    void findByPatientNameSuccess(){
+        Patient found = patientRepo.findByName("John");
+        assertThat(found.getName()).isEqualTo(patient.getName());
     }
 
-
-
-    /// Test case for FAILURE
+    //test fo failure
+    @Test
+    void findByPatientNameFail(){
+        Patient found = patientRepo.findByName("Smith");
+        assertThat(found).isNull();
+    }
 }
