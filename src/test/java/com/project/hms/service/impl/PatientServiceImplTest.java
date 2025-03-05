@@ -1,22 +1,8 @@
 package com.project.hms.service.impl;
 
-import com.project.hms.common.enums.Gender;
-import com.project.hms.dto.PatientDto;
-import com.project.hms.entity.Patient;
-import com.project.hms.mapper.PatientMapper;
-import com.project.hms.repository.PatientRepo;
-import com.project.hms.service.PatientService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.time.LocalDate;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 class PatientServiceImplTest {
@@ -37,7 +23,7 @@ class PatientServiceImplTest {
     }
 
     @AfterEach
-    void tearDown()throws Exception {
+    void tearDown() throws Exception {
 //        autoCloseable.close();
     }
 
