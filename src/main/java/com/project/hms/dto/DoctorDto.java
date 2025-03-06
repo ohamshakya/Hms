@@ -1,5 +1,6 @@
 package com.project.hms.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.hms.entity.Department;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,5 +20,6 @@ public class DoctorDto {
 
     private String contactNumber;
 
+    @JsonIgnore
     private DepartmentDto department;
 }

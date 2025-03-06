@@ -23,7 +23,7 @@ public class Doctor {
     @Column(name = "contact_number")
     private String contactNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
     private Department department;
 
