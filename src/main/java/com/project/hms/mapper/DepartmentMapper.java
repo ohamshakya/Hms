@@ -49,4 +49,30 @@ public class DepartmentMapper {
         departmentDto.setDoctorDtoList(doctorDtoList);
         return departmentDto;
     }
+
+    public static void toUpdate(Department existingDepartment, DepartmentDto departmentDto, Integer id) {
+        existingDepartment.setName(departmentDto.getName());
+
+        List<Doctor> doctorList = existingDepartment.getDoctorList();
+        if (doctorList == null) {
+            doctorList = new ArrayList<>();
+            existingDepartment.setDoctorList(doctorList);
+        } else {
+            doctorList.clear();
+        }
+
+        // Add updated doctors from the DTO
+        if (departmentDto.getDoctorDtoList() != null) {
+            for (DoctorDto doctorDto : departmentDto.getDoctorDtoList()) {
+                if (doctorDto != null) {
+                    Doctor doctor = new Doctor();
+                    doctor.setName(doctorDto.getName());
+                    doctor.setSpeciality(doctorDto.getSpeciality());
+                    doctor.setContactNumber(doctorDto.getContactNumber());
+                    doctor.setDepartment(existingDepartment); // Set bidirectional relationship
+                    doctorList.add(doctor);
+                }
+            }
+        }
+    }
 }

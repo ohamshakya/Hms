@@ -1,5 +1,6 @@
 package com.project.hms.service.impl;
 
+import com.project.hms.common.exception.ResourceNotFoundException;
 import com.project.hms.dto.DepartmentDto;
 import com.project.hms.entity.Department;
 import com.project.hms.mapper.DepartmentMapper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -32,21 +34,32 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDto update(DepartmentDto departmentDto, Integer id) {
-        return null;
+        log.info("inside department update : service");
+
+        Department existingDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOt found"));
+        DepartmentMapper.toUpdate(existingDepartment,departmentDto,id);
+        Department result = departmentRepo.save(existingDepartment);
+        return DepartmentMapper.toDto(result);
     }
 
     @Override
-    public DepartmentDto getById(DepartmentDto departmentDto) {
-        return null;
+    public DepartmentDto getById(Integer id) {
+        log.info("inside department getById : service");
+        Department existingDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOt found"));
+        return DepartmentMapper.toDto(existingDepartment);
     }
 
     @Override
-    public DepartmentDto delete(Integer id) {
-        return null;
+    public void delete(Integer id) {
+        log.info("inside department delete : service");
+        Department deleteDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOt found"));
+        departmentRepo.delete(deleteDepartment);
     }
 
     @Override
     public List<DepartmentDto> getAll() {
-        return List.of();
+        log.info("inside department getAll : service");
+        List<Department> departments = departmentRepo.findAll();
+        return departments.stream().map(DepartmentMapper::toDto).collect(Collectors.toList());
     }
 }

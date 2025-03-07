@@ -12,6 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DoctorDto {
+
+    @JsonIgnore
     private Integer id;
 
     private String name;
