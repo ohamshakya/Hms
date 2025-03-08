@@ -14,4 +14,6 @@ public interface PatientService {
     List<PatientDto> getAll();
 
     void delete(Integer id);
+
+    List<PatientDto> search(String query);
 }

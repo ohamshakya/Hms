@@ -13,9 +13,11 @@ import java.util.List;
 @Builder
 @Table(name = "department_details")
 public class Department {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "name")
     private String name;
 

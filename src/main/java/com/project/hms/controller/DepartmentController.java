@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping("/department")
 @Slf4j
 public class DepartmentController {
+
     @Autowired
     private final DepartmentService departmentService;
 

@@ -28,7 +28,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientDto save(PatientDto patientDto) {
-        log.info("inside save : service");
+        log.info("inside save patient : service");
         Patient existingPatient = patientRepo.findByName(patientDto.getName());
         if (existingPatient != null) {
             throw new AlreadyExistsException("Patient with name " + patientDto.getName() + " already exists");
@@ -41,27 +41,23 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public PatientDto update(PatientDto patientDto, Integer id) {
-        log.info("inside update : service");
+        log.info("inside patient update : service");
         Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
-        existingPatient.setName(patientDto.getName());
-        existingPatient.setDob(patientDto.getDob());
-        existingPatient.setGender(patientDto.getGender());
-        existingPatient.setMobileNumber(patientDto.getMobileNumber());
-        existingPatient.setAge(patientDto.getAge());
-        patientRepo.save(existingPatient);
-        return PatientMapper.toDto(existingPatient);
+        PatientMapper.toUpdate(existingPatient,patientDto,id);
+        Patient finalResult = patientRepo.save(existingPatient);
+        return PatientMapper.toDto(finalResult);
     }
 
     @Override
     public PatientDto getById(Integer id) {
-        log.info("inside getById : service");
+        log.info("inside get patient By Id  : service");
         Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
         return PatientMapper.toDto(existingPatient);
     }
 
     @Override
     public List<PatientDto> getAll() {
-        log.info("inside getAll : service");
+        log.info("inside getAll patient : service");
         List<Patient> patientList = patientRepo.findAll();
         return patientList.stream().map(PatientMapper::toDto).collect(Collectors.toList());
     }
@@ -69,9 +65,16 @@ public class PatientServiceImpl implements PatientService {
     @Override
     @Transactional
     public void delete(Integer id) {
-        log.info("inside delete : service");
+        log.info("inside delete patient : service");
         Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
         patientRepo.delete(existingPatient);
 
+    }
+
+    @Override
+    public List<PatientDto> search(String query) {
+        log.info("inside search patient: service");
+        List<Patient> listResponse =  patientRepo.search(query);
+        return listResponse.stream().map(PatientMapper::toDto).collect(Collectors.toList());
     }
 }

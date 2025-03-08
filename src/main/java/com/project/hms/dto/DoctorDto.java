@@ -1,11 +1,12 @@
 package com.project.hms.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.hms.entity.Department;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +22,8 @@ public class DoctorDto {
     private String speciality;
 
     private String contactNumber;
+
+    private List<AppointmentDto> appointmentDtoList;
 
     @JsonIgnore
     private DepartmentDto department;

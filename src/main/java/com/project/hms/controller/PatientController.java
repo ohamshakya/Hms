@@ -57,4 +57,11 @@ public class PatientController {
         patientService.delete(id);
         return new ResponseWrapper<>(null,"deleted successfully",HttpStatus.OK.value());
     }
+
+    @GetMapping("/search")
+    public ResponseWrapper<List<PatientDto>> searchPatient(@RequestParam String query) {
+        log.info("inside search patient: controller");
+        List<PatientDto> response = patientService.search(query);
+        return new ResponseWrapper<>(response,"retrieved successfully",HttpStatus.OK.value());
+    }
 }

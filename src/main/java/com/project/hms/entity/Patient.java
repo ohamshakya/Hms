@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,4 +32,7 @@ public class Patient {
     private String mobileNumber;
 
     private Integer age;
+
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Appointment> appointmentList;
 }

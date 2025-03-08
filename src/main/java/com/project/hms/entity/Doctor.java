@@ -3,6 +3,9 @@ package com.project.hms.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -25,5 +28,6 @@ public class Doctor {
     @JoinColumn(name = "department_id")
     private Department department;
 
-
+    @OneToMany(mappedBy = "doctor",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Appointment> appointmentList;
 }
