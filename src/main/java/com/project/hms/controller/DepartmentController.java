@@ -56,4 +56,11 @@ public class DepartmentController {
         List<DepartmentDto> response = departmentService.getAll();
         return new ResponseWrapper<>(response,"retrieved successfully", HttpStatus.OK.value());
     }
+
+    @GetMapping("/search")
+    public ResponseWrapper<List<DepartmentDto>> search(@RequestParam String name) {
+        log.info("inside search department : controller");
+        List<DepartmentDto> response = departmentService.search(name);
+        return new ResponseWrapper<>(response,"retrieved successfully", HttpStatus.OK.value());
+    }
 }

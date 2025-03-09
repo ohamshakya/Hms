@@ -62,4 +62,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Department> departments = departmentRepo.findAll();
         return departments.stream().map(DepartmentMapper::toDto).collect(Collectors.toList());
     }
+
+    @Override
+    public List<DepartmentDto> search(String query) {
+        log.info("inside search department : service");
+        List<Department> departmentList = departmentRepo.searchDepartmentByName(query);
+        return departmentList.stream().map(DepartmentMapper::toDto).collect(Collectors.toList());
+    }
 }
