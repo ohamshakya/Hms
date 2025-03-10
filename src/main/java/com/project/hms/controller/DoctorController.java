@@ -6,10 +6,9 @@ import com.project.hms.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/doctor")
@@ -27,5 +26,26 @@ public class DoctorController {
         log.info("inside create doctor : controller");
         DoctorDto response = doctorService.save(doctorDto);
         return new ResponseWrapper<>(response,"created successfully", HttpStatus.OK.value());
+    }
+
+    @GetMapping("{id}")
+    public ResponseWrapper<DoctorDto> getDoctorById(@PathVariable int id) {
+        log.info("inside get doctor by id : controller");
+        DoctorDto response = doctorService.getById(id);
+        return new ResponseWrapper<>(response,"get successfully", HttpStatus.OK.value());
+    }
+
+    @GetMapping
+    public ResponseWrapper<List<DoctorDto>> getAllDoctors() {
+        log.info("get all doctor : controller");
+        List<DoctorDto> response = doctorService.getAll();
+        return new ResponseWrapper<>(response,"get successfully", HttpStatus.OK.value());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseWrapper<Object> delete(@PathVariable Integer id){
+        log.info("inside delete doctor : controller");
+        doctorService.deleteById(id);
+        return new ResponseWrapper<>(null,"deleted successfully", HttpStatus.OK.value());
     }
 }
