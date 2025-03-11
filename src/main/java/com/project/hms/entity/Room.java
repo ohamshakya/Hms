@@ -3,16 +3,14 @@ package com.project.hms.entity;
 import com.project.hms.common.enums.RoomAvailability;
 import com.project.hms.common.enums.RoomType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "room_details")
 public class Room {
     @Id
