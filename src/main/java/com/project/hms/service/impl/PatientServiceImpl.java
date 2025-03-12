@@ -43,7 +43,7 @@ public class PatientServiceImpl implements PatientService {
     public PatientDto update(PatientDto patientDto, Integer id) {
         log.info("inside patient update : service");
         Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
-        PatientMapper.toUpdate(existingPatient,patientDto,id);
+        PatientMapper.toUpdate(existingPatient, patientDto, id);
         Patient finalResult = patientRepo.save(existingPatient);
         return PatientMapper.toDto(finalResult);
     }
@@ -74,7 +74,23 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDto> search(String query) {
         log.info("inside search patient: service");
-        List<Patient> listResponse =  patientRepo.search(query);
+        List<Patient> listResponse = patientRepo.search(query);
         return listResponse.stream().map(PatientMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public String approveAppointment(Integer id) {
+        try {
+            Patient response = checkIfExist(id);
+
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
+    @Override
+    public Patient checkIfExist(Integer id) {
+        return patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 }

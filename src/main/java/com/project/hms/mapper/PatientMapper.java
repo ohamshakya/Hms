@@ -1,5 +1,6 @@
 package com.project.hms.mapper;
 
+import com.project.hms.common.enums.Status;
 import com.project.hms.dto.AppointmentDto;
 import com.project.hms.dto.PatientDto;
 import com.project.hms.entity.Appointment;
@@ -23,7 +24,7 @@ public class PatientMapper {
                 if(dtoAppointment != null){
                     Appointment appointment = new Appointment();
                     appointment.setAppointmentDate(dtoAppointment.getAppointmentDate());
-                    appointment.setStatus(dtoAppointment.getStatus());
+                    appointment.setStatus(Status.PENDING);
                     appointment.setPatient(patient);
                     appointmentList.add(appointment);
                 }

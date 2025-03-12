@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface AppointmentService {
     List<PatientDto> findByAppointmentDate(LocalDate appointmentDate);
+
 }

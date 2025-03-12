@@ -1,6 +1,7 @@
 package com.project.hms.service;
 
 import com.project.hms.dto.PatientDto;
+import com.project.hms.entity.Patient;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface PatientService {
     void delete(Integer id);
 
     List<PatientDto> search(String query);
+
+    String approveAppointment(Integer id);
+
+    Patient checkIfExist(Integer id);
+
 }
