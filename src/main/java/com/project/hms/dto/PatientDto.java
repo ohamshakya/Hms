@@ -2,6 +2,7 @@ package com.project.hms.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.hms.common.enums.Gender;
+import com.project.hms.entity.Bill;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,4 +34,6 @@ public class PatientDto {
     private Integer age;
 
     private List<AppointmentDto> appointmentDtoList;
+
+    private List<BillDto> billDtoList;
 }

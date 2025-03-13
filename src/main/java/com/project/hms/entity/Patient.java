@@ -35,4 +35,7 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Appointment> appointmentList;
+
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Bill> billList;
 }

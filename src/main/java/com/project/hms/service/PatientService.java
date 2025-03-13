@@ -18,7 +18,7 @@ public interface PatientService {
 
     List<PatientDto> search(String query);
 
-    String approveAppointment(Integer id);
+//    String approveAppointment(Integer id);
 
     Patient checkIfExist(Integer id);
 

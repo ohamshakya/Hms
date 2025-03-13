@@ -64,4 +64,10 @@ public class PatientController {
         List<PatientDto> response = patientService.search(query);
         return new ResponseWrapper<>(response,"retrieved successfully",HttpStatus.OK.value());
     }
+
+//    @PutMapping("/approve/{id}")
+//    public ResponseWrapper<String> approveAppointment(@PathVariable Integer id) {
+//        String response = patientService.approveAppointment(id);
+//        return new ResponseWrapper<>(response+" has been approved","approved",HttpStatus.OK.value());
+//    }
 }

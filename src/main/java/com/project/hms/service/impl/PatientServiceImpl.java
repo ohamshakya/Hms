@@ -1,8 +1,11 @@
 package com.project.hms.service.impl;
 
+import com.project.hms.common.enums.Status;
 import com.project.hms.common.exception.AlreadyExistsException;
 import com.project.hms.common.exception.ResourceNotFoundException;
 import com.project.hms.dto.PatientDto;
+import com.project.hms.entity.Appointment;
+import com.project.hms.entity.Doctor;
 import com.project.hms.entity.Patient;
 import com.project.hms.mapper.PatientMapper;
 import com.project.hms.repository.PatientRepo;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,16 +82,30 @@ public class PatientServiceImpl implements PatientService {
         return listResponse.stream().map(PatientMapper::toDto).collect(Collectors.toList());
     }
 
-    @Override
-    public String approveAppointment(Integer id) {
-        try {
-            Patient response = checkIfExist(id);
-
-        } catch (Exception e) {
-
-        }
-        return null;
-    }
+//    @Override
+//    public String approveAppointment(Integer id) {
+//        try {
+//            Patient response = checkIfExist(id);
+//            List<Appointment> appointmentList = new ArrayList<>();
+//            if(appointmentList != null) {
+//                for (Appointment appointment : response.getAppointmentList()) {
+//                    Appointment appointment1 = new Appointment();
+//                    appointment1.setStatus(Status.SCHEDULED);
+//                    appointment1.setDoctor(Doctor.builder()
+//                            .name(appointment.getDoctor().getName())
+//                            .contactNumber(appointment.getDoctor().getContactNumber())
+//                            .build());
+//                    appointmentList.add(appointment1);
+//                }
+//            }
+//            response.setAppointmentList(appointmentList);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//        }
+//        throw new ResourceNotFoundException("NOt found");
+//    }
 
     @Override
     public Patient checkIfExist(Integer id) {
