@@ -39,7 +39,7 @@ public class PatientServiceImpl implements PatientService {
         }
         Patient patient = PatientMapper.toEntity(patientDto);
         patientRepo.save(patient);
-        return PatientMapper.toDto(patient);
+       return PatientMapper.toDto(patient);
     }
 
     @Override
