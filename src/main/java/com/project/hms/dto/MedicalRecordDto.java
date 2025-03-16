@@ -1,5 +1,6 @@
 package com.project.hms.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,7 @@ public class MedicalRecordDto {
     private String treatment;
 
     private LocalDate recordDate;
+
+    @JsonIgnore
+    private PatientDto patientDto;
 }

@@ -25,8 +25,8 @@ public class AppointmentDto {
     private Status status;
 
     @JsonIgnore
-    private Patient patient;
+    private PatientDto patient;
 
     @JsonIgnore
-    private Doctor doctor;
+    private DoctorDto doctor;
 }

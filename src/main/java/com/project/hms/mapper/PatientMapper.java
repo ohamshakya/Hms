@@ -3,9 +3,11 @@ package com.project.hms.mapper;
 import com.project.hms.common.enums.Status;
 import com.project.hms.dto.AppointmentDto;
 import com.project.hms.dto.BillDto;
+import com.project.hms.dto.MedicalRecordDto;
 import com.project.hms.dto.PatientDto;
 import com.project.hms.entity.Appointment;
 import com.project.hms.entity.Bill;
+import com.project.hms.entity.MedicalRecord;
 import com.project.hms.entity.Patient;
 
 import java.util.ArrayList;
@@ -44,6 +46,19 @@ public class PatientMapper {
                 }
             }
         }
+        List<MedicalRecord> medicalRecordList = new ArrayList<>();
+        if(patientDto.getMedicalRecordDtoList() != null) {
+            for(MedicalRecordDto dtoMedical : patientDto.getMedicalRecordDtoList()){
+                if(dtoMedical != null){
+                    MedicalRecord medicalRecord = new MedicalRecord();
+                    medicalRecord.setDiagnosis(dtoMedical.getDiagnosis());
+                    medicalRecord.setTreatment(dtoMedical.getTreatment());
+                    medicalRecord.setPatient(patient);
+                    medicalRecordList.add(medicalRecord);
+                }
+            }
+        }
+        patient.setMedicalRecordList(medicalRecordList);
         patient.setBillList(billList);
         patient.setAppointmentList(appointmentList);
         return patient;
@@ -65,7 +80,6 @@ public class PatientMapper {
                     appointmentDto.setId(appointment.getId());
                     appointmentDto.setAppointmentDate(appointment.getAppointmentDate());
                     appointmentDto.setStatus(appointment.getStatus());
-                    appointmentDto.setPatient(patient);
                     appointmentDtoList.add(appointmentDto);
                 }
             }
@@ -82,6 +96,19 @@ public class PatientMapper {
                 }
             }
         }
+        List<MedicalRecordDto> medicalRecordDtoList = new ArrayList<>();
+        if(patient.getMedicalRecordList() != null) {
+            for(MedicalRecord dtoMedical : patient.getMedicalRecordList()){
+                if(dtoMedical != null){
+                    MedicalRecordDto medicalRecordDto = new MedicalRecordDto();
+                    medicalRecordDto.setDiagnosis(dtoMedical.getDiagnosis());
+                    medicalRecordDto.setTreatment(dtoMedical.getTreatment());
+                    medicalRecordDto.setRecordDate(dtoMedical.getRecordDate());
+                    medicalRecordDtoList.add(medicalRecordDto);
+                }
+            }
+        }
+        patientDto.setMedicalRecordDtoList(medicalRecordDtoList);
         patientDto.setBillDtoList(billDtoList);
         patientDto.setAppointmentDtoList(appointmentDtoList);
         return patientDto;

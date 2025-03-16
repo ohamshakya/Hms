@@ -25,5 +25,6 @@ public class BillDto {
     @CreationTimestamp
     private LocalDate date;
 
+    @JsonIgnore
     private PatientDto patient;
 }

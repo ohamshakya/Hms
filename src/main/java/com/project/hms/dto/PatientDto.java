@@ -36,4 +36,6 @@ public class PatientDto {
     private List<AppointmentDto> appointmentDtoList;
 
     private List<BillDto> billDtoList;
+
+    private List<MedicalRecordDto> medicalRecordDtoList;
 }

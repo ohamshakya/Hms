@@ -24,4 +24,7 @@ public class MedicalRecord {
     private String treatment;
 
     private LocalDate recordDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Patient patient;
 }
