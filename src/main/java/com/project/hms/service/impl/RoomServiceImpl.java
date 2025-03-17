@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class RoomServiceImpl implements RoomService {
+
     private final RoomRepo roomRepo;
 
     public RoomServiceImpl(RoomRepo roomRepo) {
@@ -34,6 +35,7 @@ public class RoomServiceImpl implements RoomService {
         existingRoom.setRoomAvailability(roomDto.getRoomAvailability());
         roomRepo.save(existingRoom);
         return RoomMapper.toDto(existingRoom);
+
     }
 
     @Override
