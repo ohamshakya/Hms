@@ -19,14 +19,15 @@ public class PatientController {
     @Autowired
     private final PatientService patientService;
 
+
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
     }
 
-    @PostMapping
-    public ResponseWrapper<PatientDto> createPatient(@Valid @RequestBody PatientDto patientDto) {
+    @PostMapping("/{doctorId}")
+    public ResponseWrapper<PatientDto> createPatient(@Valid @RequestBody PatientDto patientDto,@PathVariable Integer doctorId) {
         log.info("inside create patient: controller");
-        PatientDto response = patientService.save(patientDto);
+        PatientDto response = patientService.save(patientDto,doctorId);
         return new ResponseWrapper<>(response,"created successfully", HttpStatus.CREATED.value());
     }
 

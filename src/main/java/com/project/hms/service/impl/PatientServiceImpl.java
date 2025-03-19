@@ -8,6 +8,7 @@ import com.project.hms.entity.Appointment;
 import com.project.hms.entity.Doctor;
 import com.project.hms.entity.Patient;
 import com.project.hms.mapper.PatientMapper;
+import com.project.hms.repository.DoctorRepo;
 import com.project.hms.repository.PatientRepo;
 import com.project.hms.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,18 +27,24 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private final PatientRepo patientRepo;
 
-    public PatientServiceImpl(PatientRepo patientRepo) {
+
+    private final DoctorRepo doctorRepo;
+
+    public PatientServiceImpl(PatientRepo patientRepo, DoctorRepo doctorRepo) {
         this.patientRepo = patientRepo;
+        this.doctorRepo = doctorRepo;
     }
 
     @Override
-    public PatientDto save(PatientDto patientDto) {
+    @Transactional
+    public PatientDto save(PatientDto patientDto,Integer id) {
         log.info("inside save patient : service");
+        Doctor doctorId = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Doctor Not found"));
         Patient existingPatient = patientRepo.findByName(patientDto.getName());
         if (existingPatient != null) {
             throw new AlreadyExistsException("Patient with name " + patientDto.getName() + " already exists");
         }
-        Patient patient = PatientMapper.toEntity(patientDto);
+        Patient patient = PatientMapper.toEntity(patientDto,doctorId);
         patientRepo.save(patient);
        return PatientMapper.toDto(patient);
     }

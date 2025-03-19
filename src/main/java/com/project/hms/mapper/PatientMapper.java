@@ -5,17 +5,14 @@ import com.project.hms.dto.AppointmentDto;
 import com.project.hms.dto.BillDto;
 import com.project.hms.dto.MedicalRecordDto;
 import com.project.hms.dto.PatientDto;
-import com.project.hms.entity.Appointment;
-import com.project.hms.entity.Bill;
-import com.project.hms.entity.MedicalRecord;
-import com.project.hms.entity.Patient;
+import com.project.hms.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PatientMapper {
 
-    public static Patient toEntity(PatientDto patientDto) {
+    public static Patient toEntity(PatientDto patientDto, Doctor doctor) {
         Patient patient = new Patient();
         patient.setName(patientDto.getName());
         patient.setDob(patientDto.getDob());
@@ -30,6 +27,7 @@ public class PatientMapper {
                     appointment.setAppointmentDate(dtoAppointment.getAppointmentDate());
                     appointment.setStatus(Status.PENDING);
                     appointment.setPatient(patient);
+                    appointment.setDoctor(doctor);
                     appointmentList.add(appointment);
                 }
             }

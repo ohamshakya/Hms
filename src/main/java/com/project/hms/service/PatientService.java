@@ -6,7 +6,7 @@ import com.project.hms.entity.Patient;
 import java.util.List;
 
 public interface PatientService {
-    PatientDto save(PatientDto patientDto);
+    PatientDto save(PatientDto patientDto,Integer id);
 
     PatientDto update(PatientDto patientDto,Integer id);
 

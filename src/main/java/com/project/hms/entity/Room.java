@@ -25,8 +25,8 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomAvailability roomAvailability;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false)
-    private Patient patient;
+//    @ManyToOne
+//    @JoinColumn(name = "patient_id", nullable = false)
+//    private Patient patient;
 
 }
