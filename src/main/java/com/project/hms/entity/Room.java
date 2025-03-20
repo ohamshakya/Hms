@@ -5,6 +5,8 @@ import com.project.hms.common.enums.RoomType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,8 +27,7 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomAvailability roomAvailability;
 
-//    @ManyToOne
-//    @JoinColumn(name = "patient_id", nullable = false)
-//    private Patient patient;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Patient> patients;
 
 }

@@ -41,4 +41,7 @@ public class Patient {
 
     @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MedicalRecord> medicalRecordList;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Room room;
 }

@@ -6,6 +6,8 @@ import com.project.hms.entity.Room;
 import com.project.hms.mapper.RoomMapper;
 import com.project.hms.repository.RoomRepo;
 import com.project.hms.service.RoomService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +50,10 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomDto> getAll() {
         List<Room> rooms = roomRepo.findAll();
         return rooms.stream().map(RoomMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<RoomDto> search(Pageable pageable) {
+        return roomRepo.search(pageable).map(RoomMapper::toDto);
     }
 }
