@@ -53,7 +53,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Page<RoomDto> search(Pageable pageable) {
-        return roomRepo.search(pageable).map(RoomMapper::toDto);
+    public Page<RoomDto> search(String query,Pageable pageable) {
+        return roomRepo.search(query,pageable).map(RoomMapper::toDto);
     }
 }

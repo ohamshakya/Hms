@@ -1,11 +1,13 @@
 package com.project.hms.controller;
 
+import com.project.hms.common.utils.PaginationUtils;
 import com.project.hms.common.utils.ResponseWrapper;
 import com.project.hms.dto.RoomDto;
 import com.project.hms.entity.Room;
 import com.project.hms.service.RoomService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,10 +55,26 @@ public class RoomController {
     }
 
     @GetMapping("/search")
-    public ResponseWrapper<Page<RoomDto>> search(@RequestParam("page")Optional<Integer> page,
+    public ResponseWrapper<Object> search(@RequestParam("query")Optional<String> query,
+                                                 @RequestParam("page")Optional<Integer> page,
                                                  @RequestParam("size")Optional<Integer> size,
                                                  @RequestParam("sortBy")Optional<String> sortBy,
                                                  @RequestParam("sortOrder")Optional<String> sortOrder) {
-        return null;
+        Pageable pageable = PaginationUtils.preparePagination(
+                page,
+                size.orElse(DEFAULT_PAGE),
+                sortBy.orElse(SORT_BY),
+                sortOrder.orElse(SORT_ORDER)
+        );
+        String q;
+        Object response;
+
+        if(query.isPresent()) {
+            q = query.get();
+            response = roomService.search(q, pageable);
+        }else{
+            response = roomService.getAll();
+        }
+        return new ResponseWrapper<>(response,"retrieved",HttpStatus.OK.value());
     }
 }

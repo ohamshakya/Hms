@@ -2,6 +2,8 @@ package com.project.hms.service;
 
 import com.project.hms.dto.PatientDto;
 import com.project.hms.entity.Patient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -16,7 +18,7 @@ public interface PatientService {
 
     void delete(Integer id);
 
-    List<PatientDto> search(String query);
+    List<PatientDto> search(String query, Pageable pageable);
 
 //    String approveAppointment(Integer id);
 

@@ -15,5 +15,5 @@ public interface RoomService {
 
     List<RoomDto> getAll();
 
-    Page<RoomDto> search(Pageable pageable);
+    Page<RoomDto> search(String query,Pageable pageable);
 }

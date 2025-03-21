@@ -13,6 +13,7 @@ import com.project.hms.repository.PatientRepo;
 import com.project.hms.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,9 +84,9 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<PatientDto> search(String query) {
+    public List<PatientDto> search(String query, Pageable pageable) {
         log.info("inside search patient: service");
-        List<Patient> listResponse = patientRepo.search(query);
+        List<Patient> listResponse = patientRepo.search(query,pageable);
         return listResponse.stream().map(PatientMapper::toDto).collect(Collectors.toList());
     }
 
