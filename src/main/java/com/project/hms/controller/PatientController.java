@@ -1,15 +1,19 @@
 package com.project.hms.controller;
 
+import com.project.hms.common.utils.PaginationUtils;
 import com.project.hms.common.utils.ResponseWrapper;
 import com.project.hms.dto.PatientDto;
 import com.project.hms.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/patient")
@@ -19,6 +23,9 @@ public class PatientController {
     @Autowired
     private final PatientService patientService;
 
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final String SORT_BY = "updatedAt";
+    private static final String SORT_ORDER = "DESC";
 
     public PatientController(PatientService patientService) {
         this.patientService = patientService;
@@ -60,10 +67,27 @@ public class PatientController {
     }
 
     @GetMapping("/search")
-    public ResponseWrapper<List<PatientDto>> searchPatient(@RequestParam String query) {
+    public ResponseWrapper<Object> searchPatient(@RequestParam("query")Optional<String> query,
+                                                           @RequestParam("page")Optional<Integer> page,
+                                                           @RequestParam("size")Optional<Integer> size,
+                                                           @RequestParam("sortBy")Optional<String> sortBy,
+                                                           @RequestParam("sortOrder")Optional<String> sortOrder) {
         log.info("inside search patient: controller");
-        List<PatientDto> response = patientService.search(query);
-        return new ResponseWrapper<>(response,"retrieved successfully",HttpStatus.OK.value());
+        Pageable pageable = PaginationUtils.preparePagination(
+                page,
+                size.orElse(DEFAULT_PAGE_SIZE),
+                sortBy.orElse(SORT_BY),
+                sortOrder.orElse(SORT_ORDER)
+        );
+        String q;
+        Object response;
+        if(query.isPresent()){
+            q = query.get();
+            response = patientService.search(q,pageable);
+        }else{
+            response = patientService.getAll();
+        }
+        return new ResponseWrapper<>(response,"retrieved",HttpStatus.OK.value());
     }
 
 //    @PutMapping("/approve/{id}")
