@@ -117,6 +117,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient checkIfExist(Integer id) {
+        log.info("check if exist patient : service");
         return patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 }

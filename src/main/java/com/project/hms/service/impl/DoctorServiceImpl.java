@@ -52,6 +52,5 @@ public class DoctorServiceImpl implements DoctorService {
         log.info("inside delete doctor : service");
         Doctor existingDoctor = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOT FOUND"));
         doctorRepo.delete(existingDoctor);
-
     }
 }
