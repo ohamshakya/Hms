@@ -8,6 +8,8 @@ import com.project.hms.repository.DepartmentRepo;
 import com.project.hms.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,9 +66,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<DepartmentDto> search(String query) {
+    public Page<DepartmentDto> search(String query, Pageable pageable) {
         log.info("inside search department : service");
-        List<Department> departmentList = departmentRepo.searchDepartmentByName(query);
-        return departmentList.stream().map(DepartmentMapper::toDto).collect(Collectors.toList());
+       return departmentRepo.searchDepartmentByName(query,pageable).map(DepartmentMapper::toDto);
     }
 }

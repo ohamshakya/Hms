@@ -1,14 +1,16 @@
 package com.project.hms.controller;
 
+import com.project.hms.common.utils.PaginationUtils;
 import com.project.hms.common.utils.ResponseWrapper;
 import com.project.hms.dto.DepartmentDto;
 import com.project.hms.service.DepartmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/department")
@@ -17,6 +19,10 @@ public class DepartmentController {
 
     @Autowired
     private final DepartmentService departmentService;
+
+    private static final int DEFAULT_PAGE_SIZE = 10;
+    private static final String SORT_BY = "updatedAt";
+    private static final String SORT_ORDER = "DESC";
 
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
@@ -58,9 +64,27 @@ public class DepartmentController {
     }
 
     @GetMapping("/search")
-    public ResponseWrapper<List<DepartmentDto>> search(@RequestParam String name) {
+    public ResponseWrapper<Object> search(@RequestParam("query") Optional<String> query,
+                                                       @RequestParam("page")Optional<Integer> page,
+                                                       @RequestParam("size")Optional<Integer> size,
+                                                       @RequestParam("sortBy")Optional<String> sortBy,
+                                                       @RequestParam("sortOrder")Optional<String> sortOrder) {
         log.info("inside search department : controller");
-        List<DepartmentDto> response = departmentService.search(name);
+
+        Pageable pageable = PaginationUtils.preparePagination(
+                page,
+                size.orElse(DEFAULT_PAGE_SIZE),
+                sortBy.orElse(SORT_BY),
+                sortOrder.orElse(SORT_ORDER)
+        );
+        String q;
+        Object response;
+        if(query.isPresent()) {
+            q = query.get();
+            response = departmentService.search(q, pageable);
+        }else{
+            response = departmentService.getAll();
+        }
         return new ResponseWrapper<>(response,"retrieved successfully", HttpStatus.OK.value());
     }
 }
