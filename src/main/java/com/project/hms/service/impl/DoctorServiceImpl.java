@@ -8,6 +8,8 @@ import com.project.hms.repository.DoctorRepo;
 import com.project.hms.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,5 +54,10 @@ public class DoctorServiceImpl implements DoctorService {
         log.info("inside delete doctor : service");
         Doctor existingDoctor = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOT FOUND"));
         doctorRepo.delete(existingDoctor);
+    }
+
+    @Override
+    public Page<DoctorDto> searchDoctorByName(String query, Pageable pageable) {
+        return doctorRepo.searchDoctor(query,pageable).map(DoctorMapper::toDto);
     }
 }
