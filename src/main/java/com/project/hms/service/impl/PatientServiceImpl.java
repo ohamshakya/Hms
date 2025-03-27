@@ -1,10 +1,9 @@
 package com.project.hms.service.impl;
 
-import com.project.hms.common.enums.Status;
 import com.project.hms.common.exception.AlreadyExistsException;
 import com.project.hms.common.exception.ResourceNotFoundException;
+import com.project.hms.common.utils.Messages;
 import com.project.hms.dto.PatientDto;
-import com.project.hms.entity.Appointment;
 import com.project.hms.entity.Doctor;
 import com.project.hms.entity.Patient;
 import com.project.hms.mapper.PatientMapper;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,23 +36,23 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     @Transactional
-    public PatientDto save(PatientDto patientDto,Integer id) {
+    public PatientDto save(PatientDto patientDto, Integer id) {
         log.info("inside save patient : service");
-        Doctor doctorId = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Doctor Not found"));
+        Doctor doctorId = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.PATIENT_NOT_FOUND));
         Patient existingPatient = patientRepo.findByName(patientDto.getName());
         if (existingPatient != null) {
             throw new AlreadyExistsException("Patient with name " + patientDto.getName() + " already exists");
         }
-        Patient patient = PatientMapper.toEntity(patientDto,doctorId);
+        Patient patient = PatientMapper.toEntity(patientDto, doctorId);
         patientRepo.save(patient);
-       return PatientMapper.toDto(patient);
+        return PatientMapper.toDto(patient);
     }
 
     @Override
     @Transactional
     public PatientDto update(PatientDto patientDto, Integer id) {
         log.info("inside patient update : service");
-        Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.PATIENT_NOT_FOUND));
         PatientMapper.toUpdate(existingPatient, patientDto, id);
         Patient finalResult = patientRepo.save(existingPatient);
         return PatientMapper.toDto(finalResult);
@@ -63,7 +61,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public PatientDto getById(Integer id) {
         log.info("inside get patient By Id  : service");
-        Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.PATIENT_NOT_FOUND));
         return PatientMapper.toDto(existingPatient);
     }
 
@@ -78,7 +76,7 @@ public class PatientServiceImpl implements PatientService {
     @Transactional
     public void delete(Integer id) {
         log.info("inside delete patient : service");
-        Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        Patient existingPatient = patientRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.PATIENT_NOT_FOUND));
         patientRepo.delete(existingPatient);
 
     }
@@ -86,7 +84,7 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public List<PatientDto> search(String query, Pageable pageable) {
         log.info("inside search patient: service");
-        List<Patient> listResponse = patientRepo.search(query,pageable);
+        List<Patient> listResponse = patientRepo.search(query, pageable);
         return listResponse.stream().map(PatientMapper::toDto).collect(Collectors.toList());
     }
 

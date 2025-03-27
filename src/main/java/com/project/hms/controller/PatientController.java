@@ -1,5 +1,6 @@
 package com.project.hms.controller;
 
+import com.project.hms.common.utils.Messages;
 import com.project.hms.common.utils.PaginationUtils;
 import com.project.hms.common.utils.ResponseWrapper;
 import com.project.hms.dto.PatientDto;
@@ -34,35 +35,35 @@ public class PatientController {
     public ResponseWrapper<PatientDto> createPatient(@Valid @RequestBody PatientDto patientDto,@PathVariable Integer doctorId) {
         log.info("inside create patient: controller");
         PatientDto response = patientService.save(patientDto,doctorId);
-        return new ResponseWrapper<>(response,"created successfully", HttpStatus.CREATED.value());
+        return new ResponseWrapper<>(response, Messages.PATIENT_ADDED_SUCCESSFULLY, HttpStatus.CREATED.value());
     }
 
     @PutMapping("/update/{id}")
     public ResponseWrapper<PatientDto> updatePatient(@Valid @RequestBody PatientDto patientDto,@PathVariable Integer id) {
         log.info("inside update patient: controller");
         PatientDto response = patientService.update(patientDto,id);
-        return new ResponseWrapper<>(response,"updated successfully",HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.PATIENT_UPDATED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 
     @GetMapping("/retrieve/{id}")
     public ResponseWrapper<PatientDto> getPatient(@PathVariable Integer id) {
         log.info("inside get patient by id: controller");
         PatientDto response = patientService.getById(id);
-        return new ResponseWrapper<>(response,"retrieved successfully",HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.PATIENT_RETRIEVED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 
     @GetMapping
     public ResponseWrapper<List<PatientDto>> getPatients(){
         log.info("get all patients : controller");
         List<PatientDto> response = patientService.getAll();
-        return new ResponseWrapper<>(response,"retrieved successfully",HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.PATIENT_RETRIEVED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 
     @DeleteMapping("{id}")
     public ResponseWrapper<Object> deletePatient(@PathVariable Integer id) {
         log.info("inside delete patient: controller");
         patientService.delete(id);
-        return new ResponseWrapper<>(null,"deleted successfully",HttpStatus.OK.value());
+        return new ResponseWrapper<>(null,Messages.PATIENT_DELETED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 
     @GetMapping("/search")
@@ -86,7 +87,7 @@ public class PatientController {
         }else{
             response = patientService.getAll();
         }
-        return new ResponseWrapper<>(response,"retrieved",HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.PATIENT_RETRIEVED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 
 //    @PutMapping("/approve/{id}")
