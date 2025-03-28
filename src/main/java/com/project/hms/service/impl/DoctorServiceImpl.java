@@ -1,6 +1,7 @@
 package com.project.hms.service.impl;
 
 import com.project.hms.common.exception.ResourceNotFoundException;
+import com.project.hms.common.utils.Messages;
 import com.project.hms.dto.DoctorDto;
 import com.project.hms.entity.Doctor;
 import com.project.hms.mapper.DoctorMapper;
@@ -38,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public DoctorDto getById(int id) {
         log.info("inside get doctor by id : service");
-        Doctor doctor = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOT FOUND"));
+        Doctor doctor = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.DOCTOR_NOT_FOUND));
         return DoctorMapper.toDto(doctor);
     }
 
@@ -52,7 +53,7 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void deleteById(int id) {
         log.info("inside delete doctor : service");
-        Doctor existingDoctor = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOT FOUND"));
+        Doctor existingDoctor = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.DOCTOR_NOT_FOUND));
         doctorRepo.delete(existingDoctor);
     }
 
