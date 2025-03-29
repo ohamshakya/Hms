@@ -1,6 +1,7 @@
 package com.project.hms.service.impl;
 
 import com.project.hms.common.exception.ResourceNotFoundException;
+import com.project.hms.common.utils.Messages;
 import com.project.hms.dto.DepartmentDto;
 import com.project.hms.entity.Department;
 import com.project.hms.mapper.DepartmentMapper;
@@ -38,7 +39,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto update(DepartmentDto departmentDto, Integer id) {
         log.info("inside department update : service");
 
-        Department existingDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOt found"));
+        Department existingDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.DEPARTMENT_NOT_FOUND));
         DepartmentMapper.toUpdate(existingDepartment,departmentDto,id);
         Department result = departmentRepo.save(existingDepartment);
         return DepartmentMapper.toDto(result);
@@ -47,14 +48,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public DepartmentDto getById(Integer id) {
         log.info("inside department getById : service");
-        Department existingDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOt found"));
+        Department existingDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.DEPARTMENT_NOT_FOUND));
         return DepartmentMapper.toDto(existingDepartment);
     }
 
     @Override
     public void delete(Integer id) {
         log.info("inside department delete : service");
-        Department deleteDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("NOt found"));
+        Department deleteDepartment = departmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.DEPARTMENT_NOT_FOUND));
         departmentRepo.delete(deleteDepartment);
     }
 

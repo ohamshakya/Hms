@@ -38,7 +38,7 @@ public class PatientServiceImpl implements PatientService {
     @Transactional
     public PatientDto save(PatientDto patientDto, Integer id) {
         log.info("inside save patient : service");
-        Doctor doctorId = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.PATIENT_NOT_FOUND));
+        Doctor doctorId = doctorRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.DOCTOR_NOT_FOUND));
         Patient existingPatient = patientRepo.findByName(patientDto.getName());
         if (existingPatient != null) {
             throw new AlreadyExistsException("Patient with name " + patientDto.getName() + " already exists");

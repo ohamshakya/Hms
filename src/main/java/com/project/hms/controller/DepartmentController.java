@@ -1,5 +1,6 @@
 package com.project.hms.controller;
 
+import com.project.hms.common.utils.Messages;
 import com.project.hms.common.utils.PaginationUtils;
 import com.project.hms.common.utils.ResponseWrapper;
 import com.project.hms.dto.DepartmentDto;
@@ -32,35 +33,35 @@ public class DepartmentController {
     public ResponseWrapper<DepartmentDto> saveDepartment(@RequestBody DepartmentDto departmentDto) {
         log.info("inside save department : controller");
         DepartmentDto response = departmentService.save(departmentDto);
-        return new ResponseWrapper<>(response,"created successfully", HttpStatus.CREATED.value());
+        return new ResponseWrapper<>(response, Messages.DEPARTMENT_ADDED_SUCCESSFULLY, HttpStatus.CREATED.value());
     }
 
     @PutMapping("/update/{id}")
     public ResponseWrapper<DepartmentDto> updateDepartment(@PathVariable Integer id, @RequestBody DepartmentDto departmentDto) {
         log.info("inside update department : controller");
         DepartmentDto updateResponse = departmentService.update(departmentDto, id);
-        return new ResponseWrapper<>(updateResponse,"updated successfully", HttpStatus.OK.value());
+        return new ResponseWrapper<>(updateResponse,Messages.DEPARTMENT_UPDATED_SUCCESSFULLY, HttpStatus.OK.value());
     }
 
     @GetMapping("/get/{id}")
     public ResponseWrapper<DepartmentDto> getDepartment(@PathVariable Integer id) {
         log.info("inside get department by id : controller");
         DepartmentDto response = departmentService.getById(id);
-        return new ResponseWrapper<>(response,"get successfully", HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.DEPARTMENT_RETRIEVED_SUCCESSFULLY, HttpStatus.OK.value());
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseWrapper<Object> deleteDepartment(@PathVariable Integer id) {
         log.info("inside delete department : controller");
         departmentService.delete(id);
-        return new ResponseWrapper<>(null,"deleted successfully", HttpStatus.OK.value());
+        return new ResponseWrapper<>(null,Messages.DEPARTMENT_DELETED_SUCCESSFULLY, HttpStatus.OK.value());
     }
 
     @GetMapping
     public  ResponseWrapper<List<DepartmentDto>> getAllDepartment() {
         log.info("inside get all department : controller");
         List<DepartmentDto> response = departmentService.getAll();
-        return new ResponseWrapper<>(response,"retrieved successfully", HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.DEPARTMENT_DELETED_SUCCESSFULLY, HttpStatus.OK.value());
     }
 
     @GetMapping("/search")
@@ -85,6 +86,6 @@ public class DepartmentController {
         }else{
             response = departmentService.getAll();
         }
-        return new ResponseWrapper<>(response,"retrieved successfully", HttpStatus.OK.value());
+        return new ResponseWrapper<>(response,Messages.DEPARTMENT_RETRIEVED_SUCCESSFULLY, HttpStatus.OK.value());
     }
 }
