@@ -1,6 +1,7 @@
 package com.project.hms.service.impl;
 
 import com.project.hms.common.exception.ResourceNotFoundException;
+import com.project.hms.common.utils.Messages;
 import com.project.hms.dto.RoomDto;
 import com.project.hms.entity.Room;
 import com.project.hms.mapper.RoomMapper;
@@ -62,5 +63,12 @@ public class RoomServiceImpl implements RoomService {
     public Page<RoomDto> search(String query,Pageable pageable) {
         log.info("inside search room : service");
         return roomRepo.search(query,pageable).map(RoomMapper::toDto);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        log.info("inside delete room : service");
+        Room existingRoom = roomRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.ROOM_NOT_FOUND));
+        roomRepo.delete(existingRoom);
     }
 }

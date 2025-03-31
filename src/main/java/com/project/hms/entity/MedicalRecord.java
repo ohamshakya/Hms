@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @Setter
 @Table(name = "medical_record_details")
 public class MedicalRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -14,13 +14,17 @@ import java.util.Set;
 @Builder
 @Table(name = "doctor_details")
 public class Doctor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "speciality")
     private String speciality;
+
     @Column(name = "contact_number")
     private String contactNumber;
 

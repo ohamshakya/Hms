@@ -1,6 +1,7 @@
 package com.project.hms.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class DepartmentDto {
     @JsonIgnore
     private Integer id;
 
+    @NotBlank(message = "name is required")
     private String name;
 
     private List<DoctorDto> doctorDtoList;

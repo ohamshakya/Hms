@@ -16,4 +16,6 @@ public interface RoomService {
     List<RoomDto> getAll();
 
     Page<RoomDto> search(String query,Pageable pageable);
+
+    void deleteById(Integer id);
 }

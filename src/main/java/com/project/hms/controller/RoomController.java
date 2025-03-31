@@ -75,4 +75,10 @@ public class RoomController {
         }
         return new ResponseWrapper<>(response, Messages.ROOM_RETRIEVED_SUCCESSFULLY, HttpStatus.OK.value());
     }
+
+    @DeleteMapping("{id}")
+    public ResponseWrapper<Object> deleteRoom(@PathVariable int id) {
+        roomService.deleteById(id);
+        return new ResponseWrapper<>(null, Messages.ROOM_DELETED_SUCCESSFULLY, HttpStatus.OK.value());
+    }
 }
