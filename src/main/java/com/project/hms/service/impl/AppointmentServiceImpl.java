@@ -1,5 +1,6 @@
 package com.project.hms.service.impl;
 
+import com.project.hms.dto.AppointmentDto;
 import com.project.hms.dto.PatientDto;
 import com.project.hms.entity.Patient;
 import com.project.hms.mapper.PatientMapper;
@@ -23,6 +24,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public AppointmentServiceImpl(AppointmentRepo appointmentRepo) {
         this.appointmentRepo = appointmentRepo;
+    }
+
+    @Override
+    public AppointmentDto save(AppointmentDto appointmentDto) {
+        return null;
     }
 
     @Override

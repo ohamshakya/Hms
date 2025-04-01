@@ -5,10 +5,7 @@ import com.project.hms.dto.PatientDto;
 import com.project.hms.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,6 +20,9 @@ public class AppointmentController {
     public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
+
+    @PostMapping
+    public ResponseWrapper<>
 
     @GetMapping("/search")
     public ResponseWrapper<List<PatientDto>> search(@RequestParam LocalDate appointmentDate){
