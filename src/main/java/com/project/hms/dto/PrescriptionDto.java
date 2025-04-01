@@ -1,5 +1,6 @@
 package com.project.hms.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,4 +20,7 @@ public class PrescriptionDto {
     private String dosage;
 
     private LocalDate prescriptionDate;
+
+    @JsonIgnore
+    private DoctorDto doctorDto;
 }

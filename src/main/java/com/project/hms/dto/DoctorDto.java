@@ -29,6 +29,8 @@ public class DoctorDto {
 
     private List<AppointmentDto> appointmentDtoList;
 
+    private List<PrescriptionDto> prescriptionDtoList;
+
     @JsonIgnore
     private DepartmentDto department;
 }
