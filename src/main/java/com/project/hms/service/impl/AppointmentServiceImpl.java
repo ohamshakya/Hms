@@ -2,7 +2,9 @@ package com.project.hms.service.impl;
 
 import com.project.hms.dto.AppointmentDto;
 import com.project.hms.dto.PatientDto;
+import com.project.hms.entity.Appointment;
 import com.project.hms.entity.Patient;
+import com.project.hms.mapper.AppointmentMapper;
 import com.project.hms.mapper.PatientMapper;
 import com.project.hms.repository.AppointmentRepo;
 import com.project.hms.service.AppointmentService;
@@ -28,7 +30,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentDto save(AppointmentDto appointmentDto) {
-        return null;
+        log.info("inside save appointment : service");
+        Appointment appointment = AppointmentMapper.toEntity(appointmentDto);
+        appointmentRepo.save(appointment);
+        return AppointmentMapper.toDto(appointment);
     }
 
     @Override
