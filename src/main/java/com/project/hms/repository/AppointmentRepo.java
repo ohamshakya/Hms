@@ -14,8 +14,9 @@ import java.time.LocalDate;
 
 @Repository
 public interface AppointmentRepo extends JpaRepository<Appointment, Integer> {
-    @Query("SELECT a.patient FROM Appointment a WHERE a.appointmentDate = :appointmentDate")
+
+//    @Query("SELECT a.patient FROM Appointment a WHERE a.appointmentDate = :appointmentDate")
     List<Patient> findPatientByAppointmentDate(@Param("appointmentDate")LocalDate appointmentDate);
 
-    Page<Patient> getPatientInPage(Pageable pageable);
+//    Page<Appointment> getPatientInPage(Pageable pageable);
 }

@@ -32,6 +32,13 @@ public class AppointmentController {
         return new ResponseWrapper<>(response, Messages.APPOINTMENT_ADDED_SUCCESSFULLY,HttpStatus.CREATED.value());
     }
 
+    @PutMapping("{id}")
+    public ResponseWrapper<AppointmentDto> updateAppointment(@PathVariable int id, @RequestBody AppointmentDto appointmentDto) {
+        log.info("inside update appointment : controller");
+        AppointmentDto response = appointmentService.update(id, appointmentDto);
+        return new ResponseWrapper<>(response,Messages.APPOINTMENT_UPDATED_SUCCESSFULLY,HttpStatus.OK.value());
+    }
+
     @GetMapping("/search")
     public ResponseWrapper<List<PatientDto>> search(@RequestParam LocalDate appointmentDate){
         List<PatientDto> response = appointmentService.findByAppointmentDate(appointmentDate);

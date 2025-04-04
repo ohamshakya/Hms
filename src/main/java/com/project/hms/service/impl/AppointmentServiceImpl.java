@@ -1,5 +1,7 @@
 package com.project.hms.service.impl;
 
+import com.project.hms.common.exception.ResourceNotFoundException;
+import com.project.hms.common.utils.Messages;
 import com.project.hms.dto.AppointmentDto;
 import com.project.hms.dto.PatientDto;
 import com.project.hms.entity.Appointment;
@@ -31,9 +33,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentDto save(AppointmentDto appointmentDto) {
         log.info("inside save appointment : service");
-        Appointment appointment = AppointmentMapper.toEntity(appointmentDto);
+        Appointment appointment = AppointmentMapper.toEntity(null,appointmentDto);
         appointmentRepo.save(appointment);
         return AppointmentMapper.toDto(appointment);
+    }
+
+    @Override
+    public AppointmentDto update(Integer id, AppointmentDto appointmentDto) {
+        Appointment existingAppointment = appointmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.APPOINTMENT_NOT_FOUND));
+        Appointment response = AppointmentMapper.toEntity(existingAppointment,appointmentDto);
+        appointmentRepo.save(response);
+        return AppointmentMapper.toDto(response);
     }
 
     @Override
