@@ -14,6 +14,8 @@ public interface AppointmentService {
 
     AppointmentDto update(Integer id,AppointmentDto appointmentDto);
 
+    AppointmentDto getById(Integer id);
+
     List<PatientDto> findByAppointmentDate(LocalDate appointmentDate);
 
 }

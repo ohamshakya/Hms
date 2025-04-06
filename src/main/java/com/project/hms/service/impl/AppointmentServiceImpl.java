@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class AppointmentServiceImpl implements AppointmentService {
-    @Autowired
+
     private final AppointmentRepo appointmentRepo;
 
     public AppointmentServiceImpl(AppointmentRepo appointmentRepo) {
@@ -44,6 +44,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment response = AppointmentMapper.toEntity(existingAppointment,appointmentDto);
         appointmentRepo.save(response);
         return AppointmentMapper.toDto(response);
+    }
+
+    @Override
+    public AppointmentDto getById(Integer id) {
+        log.info("inside get appointment by id : service");
+        Appointment existing = appointmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.APPOINTMENT_NOT_FOUND));
+        return AppointmentMapper.toDto(existing);
     }
 
     @Override
