@@ -46,6 +46,13 @@ public class AppointmentController {
         return new ResponseWrapper<>(response,Messages.APPOINTMENT_RETRIEVED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 
+    @GetMapping
+    public ResponseWrapper<List<AppointmentDto>> getAllAppointments() {
+        log.info("inside getAllAppointments : controller");
+        List<AppointmentDto> response = appointmentService.getAllAppointment();
+        return new ResponseWrapper<>(response,Messages.APPOINTMENT_RETRIEVED_SUCCESSFULLY,HttpStatus.OK.value());
+    }
+
     @GetMapping("/search")
     public ResponseWrapper<List<PatientDto>> search(@RequestParam LocalDate appointmentDate){
         List<PatientDto> response = appointmentService.findByAppointmentDate(appointmentDate);

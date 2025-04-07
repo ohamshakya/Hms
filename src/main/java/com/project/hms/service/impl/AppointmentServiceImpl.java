@@ -54,6 +54,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public List<AppointmentDto> getAllAppointment() {
+        log.info("inside get all appointment : service");
+        List<Appointment> allAppointment = appointmentRepo.findAll();
+        return allAppointment.stream().map(AppointmentMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
     public List<PatientDto> findByAppointmentDate(LocalDate appointmentDate) {
         log.info("inside find by appointment date : service");
         List<Patient> patientList = appointmentRepo.findPatientByAppointmentDate(appointmentDate);
