@@ -18,6 +18,8 @@ public interface AppointmentService {
 
     List<AppointmentDto> getAllAppointment();
 
+    String deleteAppointment(Integer id);
+
     List<PatientDto> findByAppointmentDate(LocalDate appointmentDate);
 
 }

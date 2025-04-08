@@ -61,6 +61,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public String deleteAppointment(Integer id) {
+        log.info("inside delete appointment : service");
+        Appointment existingAppointment = appointmentRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException(Messages.APPOINTMENT_NOT_FOUND));
+        appointmentRepo.delete(existingAppointment);
+        return "appointment deleted successfully";
+    }
+
+    @Override
     public List<PatientDto> findByAppointmentDate(LocalDate appointmentDate) {
         log.info("inside find by appointment date : service");
         List<Patient> patientList = appointmentRepo.findPatientByAppointmentDate(appointmentDate);

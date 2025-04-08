@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/appointment")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class AppointmentController {
 
     @Autowired
@@ -57,5 +58,12 @@ public class AppointmentController {
     public ResponseWrapper<List<PatientDto>> search(@RequestParam LocalDate appointmentDate){
         List<PatientDto> response = appointmentService.findByAppointmentDate(appointmentDate);
         return new ResponseWrapper<>(response,"retrieved successfully", HttpStatus.OK.value());
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseWrapper<String> delete(@PathVariable int id) {
+        log.info("inside delete appointment : controller");
+        String response = appointmentService.deleteAppointment(id);
+        return new ResponseWrapper<>(response,Messages.APPOINTMENT_DELETED_SUCCESSFULLY,HttpStatus.OK.value());
     }
 }

@@ -16,6 +16,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/department")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class DepartmentController {
 
     @Autowired
