@@ -75,4 +75,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         return patientList.stream().map(PatientMapper::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public Page<AppointmentDto> getAppoinemntPage(Pageable pageable) {
+        log.info("inside appointment page : service");
+        Page<Appointment> appointmentPage = appointmentRepo.findAll(pageable);
+        return appointmentPage.map(AppointmentMapper::toDto);
+    }
+
 }

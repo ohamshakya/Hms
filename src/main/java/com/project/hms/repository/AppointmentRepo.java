@@ -19,4 +19,6 @@ public interface AppointmentRepo extends JpaRepository<Appointment, Integer> {
     List<Patient> findPatientByAppointmentDate(@Param("appointmentDate")LocalDate appointmentDate);
 
 //    Page<Appointment> getPatientInPage(Pageable pageable);
+
+    Page<Appointment> getAppointment(Pageable pageable);
 }

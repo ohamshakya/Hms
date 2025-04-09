@@ -21,7 +21,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class PatientController {
 
-    @Autowired
     private final PatientService patientService;
 
     private static final int DEFAULT_PAGE_SIZE = 10;

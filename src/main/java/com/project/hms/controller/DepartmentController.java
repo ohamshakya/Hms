@@ -19,7 +19,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class DepartmentController {
 
-    @Autowired
     private final DepartmentService departmentService;
 
     private static final int DEFAULT_PAGE_SIZE = 10;

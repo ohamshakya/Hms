@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(origins = "*")
 public class DoctorController {
-    @Autowired
+
     private final DoctorService doctorService;
 
     public DoctorController(DoctorService doctorService) {

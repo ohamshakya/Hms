@@ -22,4 +22,6 @@ public interface AppointmentService {
 
     List<PatientDto> findByAppointmentDate(LocalDate appointmentDate);
 
+    Page<AppointmentDto> getAppoinemntPage(Pageable pageable);
+
 }
