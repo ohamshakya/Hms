@@ -37,4 +37,11 @@ public class PrescriptionController {
         PrescriptionDto response = prescriptionService.getById(id);
         return new ResponseWrapper<>(response,"prescription retrieved", HttpStatus.OK.value());
     }
+
+    @DeleteMapping("{id}")
+    public ResponseWrapper<Object> delete(@PathVariable Integer id){
+        log.info("Inside delete prescription : controller");
+        prescriptionService.delete(id);
+        return new ResponseWrapper<>(null,"deleted successfully",HttpStatus.OK.value());
+    }
 }
