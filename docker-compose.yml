@@ -3,8 +3,8 @@ version: '3.8'
 services:
   springboot-app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: src
+      dockerfile: src/Dockerfile
     ports:
       - "8083:8083"
     networks:

@@ -4,5 +4,5 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-    <include file="patients.xml" relativeToChangelogFile="true"/>
+    <include file="create-patient.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
