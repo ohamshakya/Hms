@@ -7,6 +7,7 @@ import com.project.hms.common.utils.ErrorResponse;
 import com.project.hms.common.utils.ResponseWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -20,5 +21,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({AlreadyExistsException.class})
     public ResponseEntity<ResponseWrapper<String>> handleAlreadyExistsException(AlreadyExistsException ex) {
         return ErrorResponse.buildErrorResponse(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({UsernameNotFoundException.class})
+    public ResponseEntity<ResponseWrapper<String>> handleUsernameNotFoundException(UsernameNotFoundException ex) {
+        return ErrorResponse.buildErrorResponse(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
