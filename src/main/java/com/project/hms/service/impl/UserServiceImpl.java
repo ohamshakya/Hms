@@ -31,4 +31,9 @@ public class UserServiceImpl implements UserService {
     public UserDto verify(UserDto userDto) {
         return null;
     }
+
+    @Override
+    public UserDto profile(UserDto userDto) {
+        return null;
+    }
 }

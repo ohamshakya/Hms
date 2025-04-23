@@ -6,4 +6,6 @@ public interface UserService {
     UserDto register(UserDto userDto);
 
     UserDto verify(UserDto userDto);
+
+    UserDto profile(UserDto userDto);
 }

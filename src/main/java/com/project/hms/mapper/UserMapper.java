@@ -28,4 +28,13 @@ public class UserMapper {
                 .updatedAt(user.getUpdatedAt())
                 .build();
     }
+
+    public static UserDto toProfileDto(User user){
+        return UserDto.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .username(user.getUsername())
+                .userStatus(user.getUserStatus())
+                .build();
+    }
 }
