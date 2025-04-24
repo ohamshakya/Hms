@@ -1,5 +1,6 @@
 package com.project.hms.dto;
 
+import com.project.hms.common.enums.UserStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ public class UserDto {
 
     private String password;
 
-    private String userStatus;
+    private UserStatus userStatus;
 
     private LocalDateTime createdAt;
 

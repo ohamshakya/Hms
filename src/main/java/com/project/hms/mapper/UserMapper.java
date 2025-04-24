@@ -1,5 +1,6 @@
 package com.project.hms.mapper;
 
+import com.project.hms.common.enums.UserStatus;
 import com.project.hms.dto.UserDto;
 import com.project.hms.entity.User;
 
@@ -11,7 +12,7 @@ public class UserMapper {
                 .lastName(userDto.getLastName())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
-                .userStatus(userDto.getUserStatus())
+                .userStatus(UserStatus.ACTIVE)
                 .createdAt(userDto.getCreatedAt())
                 .updatedAt(userDto.getUpdatedAt())
                 .build();
